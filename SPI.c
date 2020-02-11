@@ -2,8 +2,6 @@
 * SPI.c
 */
 #include "SPI.h"
-#include "avr/io.h"
-#include "avr/interrupt.h"
 
 extern ST_SPI_Configuration_t SPI_Config ;
 
@@ -11,8 +9,8 @@ static void (*SPI_ISR)(void);
 
 void SPI_Init()
 {
-
  ST_SPI_Configuration_t *gConfig = & SPI_Config;
+
 
 if (gConfig->DATA_ORDER == SPI_LSB_FISRT)
 	SetBit(SPCR, DORD);
@@ -51,8 +49,6 @@ else if (gConfig->SAMPLING_EDGE == SPI_FALLING)
 		ClearBit(SPCR, SPE);
 }
 
-
-
 uint8_t  SPI_Send_And_receive(uint8_t u8_data)
 {
    /* Start transmission */
@@ -67,15 +63,4 @@ uint8_t  SPI_Send_And_receive(uint8_t u8_data)
 uint8_t SPI_Checks_for_collision(void)
 {
  return GetBit(SPSR, WCOL);
-}
-
-
-void SPI_callBackFunc_Assign(void (*PtrToSPI_Isr) (void))
-{
-	SPI_ISR = PtrToSPI_Isr;
-}
-
-ISR(SPI_STC_vect)
-{
-	SPI_ISR();
 }

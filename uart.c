@@ -10,7 +10,6 @@
 void Uart_Init(En_BAUD_Rate Baud_rate,En_Stop_config Stop_bits_num,
   EN_Parity parity_Bit,EN_Data_Size data_num_bits,EN_UartMode uart_mode)
 {uint8_t Buffer=0;
-//UCSRC=0;
 switch (Baud_rate) {
   case Baud9600:
   UBRRL=Baud9600;
@@ -125,8 +124,6 @@ break;
 UCSRC=Buffer;
 SET_BIT(UCSRB,TXEN);/*TXEN*/
 SET_BIT(UCSRB,RXEN);/*RXEN*/
-
-
 }
 void UartTransmitPooling(uint8_t Data)
 {
@@ -141,17 +138,15 @@ data=UDR;
 return data;									/* Get and return received data */
 }
 
-
 void UartTransmitInterrupt(void)
 {
 G_interrupt_Enable();
-SET_BIT(UCSRB,7);//RX Complete Enable
+SET_BIT(UCSRB,TXCIE);
 }
 void Enable_recieve_interrupt(void)
 {
-
-
-
+G_interrupt_Enable();
+SET_BIT(UCSRA,RXCIE);
 }
 void UartRecieveInterrupt(void)
 {

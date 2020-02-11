@@ -17,7 +17,7 @@ ptr_to_Fun TIMER1COMPB;
 ptr_to_Fun TIMER1OVF;
 ptr_to_Fun TIMER0COMP=Timer_interrupt_COMP_routine;
 ptr_to_Fun TIMER0OVF_INT;//=Timer_interrupt_routine;
-ptr_to_Fun SPI_STC;
+ptr_to_Fun SPI_STC;//=SPI_ISR;
 ptr_to_Fun USART_RXC=UartRecieveInterrupt;
 ptr_to_Fun USART_UDRE;
 ptr_to_Fun USART_TXC=UartTransmitInterrupt;

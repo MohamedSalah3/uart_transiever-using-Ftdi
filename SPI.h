@@ -7,7 +7,7 @@
 
 #include "std_types.h"
 #include "SPI_Config.h"
-
+#include "registers.h"
 #define SPIE 	7
 #define SPE 	6
 #define DORD 	5
