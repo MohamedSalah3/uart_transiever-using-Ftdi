@@ -87,11 +87,17 @@
 #define TCNT2				*((reg_type8_t)(0X44))
 #define OCR2				*((reg_type8_t)(0x43))
 
+/*UART*/
 #define UDR         *((reg_type8_t)(0x2C))             /*USART IO Data Register 159 $0C*/
 #define UCSRA       *((reg_type8_t)(0x2B))
 #define UCSRB       *((reg_type8_t)(0x2A))
 #define UCSRC       *((reg_type8_t)(0x40))  /*This Address is chared with UBBRH*/
 #define UBRRL       *((reg_type8_t)(0x29))
+
+/*SPI*/
+#define SPDR		*((reg_type8_t)(0x2F))
+#define SPSR		*((reg_type8_t)(0x2E))
+#define SPCR        *((reg_type8_t)(0x2D))
 
 
 #endif /* REGISTERS_H_ */

@@ -5,8 +5,6 @@
  */
 #ifndef UARTCONFIG_H_
 #define UARTCONFIG_H_
-#define SET_BIT(REG,BIT) (REG |=(1<<BIT))
-#define CLEAR_BIT(REG,BIT) (REG &=(~(1<<BIT)))
 /*UCSRB*/
 #define TXB8    0
 #define RXB8    1

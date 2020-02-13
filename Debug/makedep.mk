@@ -12,6 +12,12 @@ main.c
 
 pushButton.c
 
+softwareDelay.c
+
+SPI.c
+
+SPI_Config.c
+
 timer.c
 
 uart.c

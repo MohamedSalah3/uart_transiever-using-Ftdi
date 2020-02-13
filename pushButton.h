@@ -8,6 +8,8 @@
 #ifndef PUSHBUTTON_H_
 #define PUSHBUTTON_H_
 #include "pushButtonConfig.h"
+#include "softwareDelay.h"
+
 typedef enum En_buttonId_t{
 	BTN_0,
 	BTN_1,
@@ -40,8 +42,5 @@ void pushButtonUpdate(void);
  *
  */
 En_buttonStatus_t pushButtonGetStatus(En_buttonId_t en_butotn_id);
-/*
-for external interrupt
-*/
-extern void check_button(void);
+
 #endif /* PUSHBUTTON_H_ */

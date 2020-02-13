@@ -20,7 +20,7 @@ ptr_to_Fun TIMER0OVF_INT;//=Timer_interrupt_routine;
 ptr_to_Fun SPI_STC;//=SPI_ISR;
 ptr_to_Fun USART_RXC=UartRecieveInterrupt;
 ptr_to_Fun USART_UDRE;
-ptr_to_Fun USART_TXC=UartTransmitInterrupt;
+ptr_to_Fun USART_TXC;//=UartTransmitInterrupt;
 ptr_to_Fun ADC_INT;
 ptr_to_Fun EE_RDY;
 ptr_to_Fun ANA_COMP;

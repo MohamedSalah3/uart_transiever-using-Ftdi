@@ -40,4 +40,9 @@ typedef volatile uint16_t* const reg_type16_t;
 #define LOW  0		// defines LOW value for a bit
 #define HIGH 0xFF	// defines HIGH value for a bit
 
+
+
+#define SET_BIT(REG,BIT) (REG |=(1<<BIT))
+#define CLEAR_BIT(REG,BIT) (REG &=(~(1<<BIT)))
+#define READBIT(REG,BIT)  ((REG >> BIT) & 1)
 #endif /* STD_TYPES_H_ */

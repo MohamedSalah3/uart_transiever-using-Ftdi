@@ -7,6 +7,9 @@
 #include "uartconfig.h"
 #include "uart.h"
 #include "registers.h"
+
+uint8_t gU8_Data_Recieved=0;
+
 void Uart_Init(En_BAUD_Rate Baud_rate,En_Stop_config Stop_bits_num,
   EN_Parity parity_Bit,EN_Data_Size data_num_bits,EN_UartMode uart_mode)
 {uint8_t Buffer=0;
@@ -138,11 +141,7 @@ data=UDR;
 return data;									/* Get and return received data */
 }
 
-void UartTransmitInterrupt(void)
-{
-G_interrupt_Enable();
-SET_BIT(UCSRB,TXCIE);
-}
+
 void Enable_recieve_interrupt(void)
 {
 G_interrupt_Enable();
@@ -150,7 +149,17 @@ SET_BIT(UCSRA,RXCIE);
 }
 void UartRecieveInterrupt(void)
 {
+gU8_Data_Recieved=UDR;
+}
+uint8_t manipulate_data(uint8_t  Data_Uart_Sent,uint8_t NumOfDigits)
+{
+  uint8_t return_Char=0;
+  uint8_t flag1=0;
+
+  return_Char +=(Data_Uart_Sent-48)*10;
+return_Char+=(Data_Uart_Sent-48)*1;
 
 
-
+/* Take characters-- */
+   /* turn them into int*/
 }

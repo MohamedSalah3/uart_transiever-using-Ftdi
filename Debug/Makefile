@@ -40,6 +40,9 @@ C_SRCS +=  \
 ../led.c \
 ../main.c \
 ../pushButton.c \
+../softwareDelay.c \
+../SPI.c \
+../SPI_Config.c \
 ../timer.c \
 ../uart.c
 
@@ -56,6 +59,9 @@ Interrupts.o \
 led.o \
 main.o \
 pushButton.o \
+softwareDelay.o \
+SPI.o \
+SPI_Config.o \
 timer.o \
 uart.o
 
@@ -66,6 +72,9 @@ Interrupts.o \
 led.o \
 main.o \
 pushButton.o \
+softwareDelay.o \
+SPI.o \
+SPI_Config.o \
 timer.o \
 uart.o
 
@@ -76,6 +85,9 @@ Interrupts.d \
 led.d \
 main.d \
 pushButton.d \
+softwareDelay.d \
+SPI.d \
+SPI_Config.d \
 timer.d \
 uart.d
 
@@ -86,6 +98,9 @@ Interrupts.d \
 led.d \
 main.d \
 pushButton.d \
+softwareDelay.d \
+SPI.d \
+SPI_Config.d \
 timer.d \
 uart.d
 
@@ -99,6 +114,12 @@ ADDITIONAL_DEPENDENCIES:=
 OUTPUT_FILE_DEP:= ./makedep.mk
 
 # AVR32/GNU C Compiler
+
+
+
+
+
+
 
 
 

@@ -1,66 +1,78 @@
 /*
-* SPI.c
-*/
+ * SPI.c
+ *
+ * Created: 2/8/2020 10:15:20 PM
+ * Author : EbrahimOseif
+ */
 #include "SPI.h"
+#include "registers.h"
+#include "gpio.h"
+#include "avr/interrupt.h"
 
-extern ST_SPI_Configuration_t SPI_Config ;
 
+
+extern ST_SPI_Configuration SPI_Config ;
+/*
 static void (*SPI_ISR)(void);
-
+*/
 void SPI_Init()
 {
- ST_SPI_Configuration_t *gConfig = & SPI_Config;
+	
+	 ST_SPI_Configuration *gConfig = & SPI_Config;
+		
+	/********************Enable SPI Interrupt ******************/
+		
+	//SPCR = SPCR | (SPI_INT_ENABLE<<SPIE);
+	SPCR =   gConfig->MASTER_SLAVE_MODE | gConfig->DATA_ORDER 
+			  | gConfig->OPERATING_LEVEL | gConfig->PRESCALAR 
+			 | gConfig->SAMPLING_EDGE;
+			 
+	SPSR |=  gConfig->DOUBLE_SPEED;
+			 gpioPinDirection(GPIOB, BIT4 | BIT5 | BIT7, OUTPUT);
+			 gpioPinDirection(GPIOB, BIT6, INPUT);
+			 
+		SPCR |=  gConfig->ENABLE;
 
-
-if (gConfig->DATA_ORDER == SPI_LSB_FISRT)
-	SetBit(SPCR, DORD);
-else if (gConfig->DATA_ORDER == SPI_MSB_FISRT)
-	ClearBit(SPCR, DORD);
-
-if (gConfig->SLAVE_MODE == SPI_MASTER)
-	SetBit(SPCR, MSTR);
-
-else if (gConfig->SLAVE_MODE == SPI_SLAVE)
-	ClearBit(SPCR, MSTR);
-
-if (gConfig->OPERATING_LEVEL == SPI_IDLE_LOW)
-	SetBit(SPCR, CPOL);
-else if (gConfig->OPERATING_LEVEL == SPI_IDLE_HIGH)
-	ClearBit(SPCR, CPOL);
-
-if (gConfig->SAMPLING_EDGE == SPI_RISING)
-	SetBit(SPCR, CPHA);
-
-else if (gConfig->SAMPLING_EDGE == SPI_FALLING)
-	ClearBit(SPCR, CPHA);
-
-	SPCR = SPCR | (gConfig->PRESCALAR);
-
-	if (gConfig->DOUBLE_SPEED == SPI_DOUBLE_SPEED_MODE_ON)
-		SetBit(SPSR, SPI2X);
-
-	else if (gConfig->DOUBLE_SPEED == SPI_DOUBLE_SPEED_MODE_OFF)
-		ClearBit(SPSR, SPI2X);
-
-	if (gConfig->ENABLE == SPI_ENABLE_ON)
-		SetBit(SPCR, SPE);
-
-	else if (gConfig->ENABLE == SPI_ENABLE_OFF)
-		ClearBit(SPCR, SPE);
+   
+		
 }
 
-uint8_t  SPI_Send_And_receive(uint8_t u8_data)
+
+
+void  SPI_Send(uint8_t u8_data)
 {
-   /* Start transmission */
-   SPDR = u8_data;
-   /* Wait for transmission complete */
-   while(!(SPSR & (1<<SPIF)))
-   ;
-   //return SPDR ; // Received data
-   return 1;
+     /* Start transmission */
+     SPDR = u8_data;
+     /* Wait for transmission complete */
+     while(!(SPSR & (1<<SPIF)))
+     ;
 }
 
-uint8_t SPI_Checks_for_collision(void)
+uint8_t  SPI_Receive(void)
 {
- return GetBit(SPSR, WCOL);
+	/* Wait for transmission complete */
+	while(!(SPSR & (1<<SPIF)))
+	;
+	//return SPDR ; // Received data
+	return SPDR;
 }
+
+
+ uint8_t SPI_Checks_for_collision(void)
+{
+	 return READBIT(SPSR, WCOL); 
+}
+
+/*
+  void SPI_callBackFunc_Assign(void (*PtrToSPI_Isr) (void))
+ {
+ 	SPI_ISR = PtrToSPI_Isr;
+ }
+
+
+  ISR(SPI_STC_vect)
+  {
+  	SPI_ISR();
+  }
+
+*/
